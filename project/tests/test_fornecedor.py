@@ -12,7 +12,7 @@ def fornecedor_valido():
     fornecedor = Fornecedor(
         18,
         "joão estrela",
-        "71-99664-5874",
+        "719966-45874",
         "joão123@gmail.com",
         Endereco(
             "beila",
@@ -33,7 +33,7 @@ def test_validar_nome_fornecedor_valido(fornecedor_valido):
      assert fornecedor_valido.nome == "joão estrela"
 
 def test_validar_telefone_fornecedor_valido(fornecedor_valido):
-    assert fornecedor_valido.telefone== "71-99664-5874"
+    assert fornecedor_valido.telefone== "719966-45874"
 
 def test_validar_email_fornecedor_valido(fornecedor_valido):
     assert fornecedor_valido.email == "joão123@gmail.com"
@@ -83,13 +83,72 @@ def test_id_valor_negativo_fornecedor_valido(fornecedor_valido):
                 "SEFAZ",
                 "Caixas"
     )
-def test_id_valor_str_forcedor_valido(fornecedor_valido):
+def test_id_valor_invalido_forcedor_valido(fornecedor_valido):
     with pytest.raises (TypeError,match="Digite apenas números para o ID."):
             Fornecedor(
         "",
         "joão estrela",
         "71-99664-5874",
         "joão123@gmail.com",
+        Endereco(
+            "beila",
+            "130", 
+            "1º andar",
+            "3131312",
+            "Salvador",
+            UnidadeFederativa.BAHIA
+                ),"12.123.123/000",
+                "SEFAZ",
+                "Caixas"
+    )
+
+    
+def test_cnpj_valor_invalido_fornecedor_valido(fornecedor_valido):
+    with pytest.raises (TypeError, match = "Cnpj inválido."):
+        Fornecedor(
+        18,
+        "joão estrela",
+        "719966-45874",
+        "joão123@gmail.com",
+        Endereco(
+            "beila",
+            "130", 
+            "1º andar",
+            "3131312",
+            "Salvador",
+            UnidadeFederativa.BAHIA
+                ),
+            "12.123.123/0010",
+                "SEFAZ",
+                "Caixas"
+    )  
+
+def test_telefone_valor_invalido_forncedor_valido(fornecedor_valido):
+    with pytest.raises (TypeError, match ="Digite apenas números."):
+        Fornecedor(
+        18,
+        "joão estrela",
+        719966-45874,
+        "joão123@gmail.com",
+        Endereco(
+            "beila",
+            "130", 
+            "1º andar",
+            "3131312",
+            "Salvador",
+            UnidadeFederativa.BAHIA
+                ),"12.123.123/000",
+                "SEFAZ",
+                "Caixas"
+    )
+
+def test_verificar_email_invalido_forcedor_valido(fornecedor_valido):
+    with pytest.raises(TypeError,match="Email Inválido, Insira o email Corretamente."):
+        Fornecedor(
+        18,
+        "joão estrela",
+        "719966-45874",
+        "",
         Endereco(
             "beila",
             "130", 
